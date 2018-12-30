@@ -26,6 +26,16 @@ app.use(express.static(publicPath));
 //listens for new connection
 io.on('connection', (socket) => {
     console.log('new user connected');
+
+    socket.emit('newEmail', {
+        from: "meera@example.com",
+        text: "hey",
+        createdAt: "now"
+    })
+
+    socket.on('createEmail', (newEmail) => {
+        console.log('createEmail', newEmail)
+    })
     socket.on('disconnect', () => {
         console.log('disconnected');
     })
